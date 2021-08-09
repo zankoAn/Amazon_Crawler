@@ -29,7 +29,6 @@ class Books:
                     String
 
                         "Not Available" if index not exists else return index of list.
-                    
             """
 
             try:
@@ -47,12 +46,9 @@ class Books:
             --------
                 List 
                     A list contains dictionary information about books.
-
         """
 
         rows = []
-
-
         urls = [self.url_books_com, self.url_books_in]
         
         print("Start Scraping the data\n")
@@ -66,7 +62,6 @@ class Books:
                     response = requests.get(url=url+str(page), headers=self.headers)
                     
                     if response.status_code == 200:
-                    
                         soup = BeautifulSoup(response.text, "lxml")
                         
                         for book in soup.find("ol", {"class":"a-ordered-list a-vertical"}):
@@ -78,18 +73,18 @@ class Books:
 
                             try:
                                 # The price may not include these two symbols([$, ₹]), in which case you will receive index out of range err
+                                currency_symbol = ["₹", "$", "₹", "¥", "£", "€", "лв", "₽", "₺"]
+                                price = [  char + price.split(char)[1] for char in currency_symbol if len(price.split(char)) > 1 ][0] if price != "Not Available" else price
+                            
+                                book_url = "https://www.amazon.in/" + book.find("a").get("href")
+                                book_url = re.match("(.*zg_bs_books_\d+)", book_url).group()
 
-                                price = [ price.split(char) for char in ["$", "₹"] if len(price.split(char)) > 1 ][0][1] if price != "Not Available" else price
+                                ratings =  ratings.replace(",", ".")
+                                ratings = float(ratings) if ratings !=  "Not Available" else ratings
 
                             except IndexError:
-                                raise "Price does not include set symbols(You can added manually)"
+                                raise Exception("Price does not include set symbols(You can added manually)")
                                 continue
-                            
-                            book_url = "https://www.amazon.in/" + book.find("a").get("href")
-                            book_url = re.match("(.*zg_bs_books_\d+)", book_url).group()
-
-                            ratings =  ratings.replace(",", ".")
-                            ratings = float(ratings) if ratings !=  "Not Available" else ratings
 
                             rows.append({"Url":book_url, "Index":number, "Name":name, "Author":author, "Stars":stars, "Ratings":ratings, "Price":price})
 
