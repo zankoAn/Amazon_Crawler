@@ -4,11 +4,11 @@ import requests
 
 import csv
 
+import re
 
 
 
 class Books:
-
     def __init__(self):
         self.url_books_com = "https://www.amazon.in/gp/bestsellers/books/ref=zg_bs_pg_1?ie=UTF8&pg="
 
@@ -86,6 +86,7 @@ class Books:
                                 continue
                             
                             book_url = "https://www.amazon.in/" + book.find("a").get("href")
+                            book_url = re.match("(.*zg_bs_books_\d+)", book_url).group()
 
                             ratings =  ratings.replace(",", ".")
                             ratings = float(ratings) if ratings !=  "Not Available" else ratings
