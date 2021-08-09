@@ -4,12 +4,15 @@
 
 Things that are displayed:
 
-- [ ]  NAME: Spooky  Pookie  (Little  Pookie)
-- [ ]  URL: [Spooky-Pookie-Little-Sandra-Boynton]( https://www.amazon.com//Spooky-Pookie-Little-Sandra-Boynton/dp/1481497677?_encoding=UTF8&psc=1)
-- [ ]  Author: Sandra  Boynton
-- [ ]  Price: $5.99
-- [ ]  Number-of-Ratings: 209
-- [ ]  Average-Rating:  4.8  out  of  5  stars
+- [x]  URL: [Ikigai: The Japanese secret to a long and happy life](https://www.amazon.in//Ikigai-H%C3%A9ctor-Garc%C3%ADa/dp/178633089X/ref=zg_bs_books_1)
+- [x]  INDEX: #1  
+- [x]  NAME: Ikigai: The Japanese secret to a long and happy life	
+- [x]  Author: Héctor García
+- [x]  Stars: 4.6 out of 5 stars	
+- [x]  Ratings: 209
+- [x]  Price: $290.00
+
+
 
 
 ## Prerequisites:
