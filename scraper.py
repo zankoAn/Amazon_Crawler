@@ -74,7 +74,7 @@ class Books:
                             book_body = [ c.strip() for c in book.text.split("\n") if c.strip()]
                             
                                             
-                            number, title, author, stars, _, price = ( self.exists(d, book_body) for d in range(6))
+                            number, title, author, stars, ratings, price = ( self.exists(d, book_body) for d in range(6))
 
                             try:
                                 # The price may not include these two symbols([$, ₹]), in which case you will receive index out of range err
@@ -85,9 +85,12 @@ class Books:
                                 raise "Price does not include set symbols(You can added manually)"
                                 continue
                             
-                            book_url = "https://www.amazon.in/" + book.find("a").get("href")                            
-                            
-                            rows.append({"Url":book_url, "Index":number, "Title":title, "Author":author, "Stars":stars, "Price":price})
+                            book_url = "https://www.amazon.in/" + book.find("a").get("href")
+
+                            ratings =  ratings.replace(",", ".")
+                            ratings = float(ratings) if ratings !=  "Not Available" else ratings
+
+                            rows.append({"Url":book_url, "Index":number, "Title":title, "Author":author, "Stars":stars, "Ratings":ratings, "Price":price})
 
                             
                 except Exception as err:
@@ -103,7 +106,7 @@ scrap = Books()
 rows = scrap.bestـsellersـbooks(4)
 
 
-fieldnames = ["Url", "Index", "Title", "Author", "Stars", "Price"]
+fieldnames = ["Url", "Index", "Title", "Author", "Stars", "Ratings", "Price"]
 
 # If you're using windows change directory /output to \\output
 with open('output/BestSeller-Books.csv', 'w', encoding='UTF8', newline='\n') as file:
